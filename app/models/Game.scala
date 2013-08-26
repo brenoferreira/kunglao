@@ -19,9 +19,3 @@ class Score(val winner:Player, val winnerScore:Int, val loser:Player, val loserS
   if(winnerScore > 2 || loserScore > 2) throw new Exception
   def to(loserScore:Int) = new Score(this.winner, this.winnerScore, this.loser, loserScore)
 }
-
-object Game {
-  def apply(result:String) = {
-
-  }
-}

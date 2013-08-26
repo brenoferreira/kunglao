@@ -19,10 +19,11 @@ object ApplicationBuild extends Build {
   
     // WebJars pull in client-side web libraries
     "org.webjars" %% "webjars-play" % "2.1.0-2",
-    "org.webjars" % "bootstrap" % "2.3.1"
+    "org.webjars" % "bootstrap" % "2.3.1",
   
     // Add your own project dependencies in the form:
     // "group" % "artifact" % "version"
+    "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
