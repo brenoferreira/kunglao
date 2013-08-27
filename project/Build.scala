@@ -23,7 +23,8 @@ object ApplicationBuild extends Build {
   
     // Add your own project dependencies in the form:
     // "group" % "artifact" % "version"
-    "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
+    "net.databinder.dispatch" %% "dispatch-core" % "0.11.0",
+    "com.restfb" % "restfb" % "1.6.12"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

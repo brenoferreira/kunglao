@@ -1,6 +1,7 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
+import infrastructure.{AccessToken, FacebookLogin}
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,9 +34,17 @@ object LoginController extends Controller {
     }
 
     Async {
-      for (
+      val accessTokenFuture = for (
         request <- createRequest(code.get)
-      ) yield Ok(request)
+      ) yield AccessToken(request)
+
+      accessTokenFuture.map(accessToken => {
+        val facebookLogin = new FacebookLogin(accessToken)
+
+        val user = facebookLogin.getUserInfo
+
+        Redirect(routes.MainController.index).withSession("username" -> user.userName)
+      })
     }
   }
 }
