@@ -33,7 +33,6 @@ object LoginController extends Controller {
     }
 
     Async {
-
       for (
         request <- createRequest(code.get)
       ) yield Ok(request)
