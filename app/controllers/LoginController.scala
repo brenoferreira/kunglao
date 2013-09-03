@@ -43,7 +43,7 @@ object LoginController extends Controller {
 
         val user = facebookLogin.getUserInfo
 
-        Redirect(routes.MainController.index).withSession("username" -> user.userName)
+        Redirect(routes.MainController.index).withSession("username" -> user.username)
       })
     }
   }

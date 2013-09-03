@@ -7,6 +7,4 @@ package models
  * Time: 15:31
  * To change this template use File | Settings | File Templates.
  */
-class User (val id:String, val name:String, val userName:String) {
-
-}
+case class User (val id:String, val name:String, val username:String)

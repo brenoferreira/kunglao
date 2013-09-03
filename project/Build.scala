@@ -24,7 +24,12 @@ object ApplicationBuild extends Build {
     // Add your own project dependencies in the form:
     // "group" % "artifact" % "version"
     "net.databinder.dispatch" %% "dispatch-core" % "0.11.0",
-    "com.restfb" % "restfb" % "1.6.12"
+    "com.restfb" % "restfb" % "1.6.12",
+
+    //slick lib
+    "com.typesafe.slick" %% "slick" % "1.0.0",
+    "org.slf4j" % "slf4j-nop" % "1.6.4",
+    "com.h2database" % "h2" % "1.3.166"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
