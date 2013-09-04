@@ -2,14 +2,15 @@
 
 # --- !Ups
 
-CREATE TABLE Teste (
+CREATE TABLE Score (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  email varchar(255) NOT NULL,
-  name varchar(255) NOT NULL,
-  username varchar(255) NOT NULL,
+  winner varchar(255) NOT NULL,
+  loser varchar(255) NOT NULL,
+  winnerScore int NOT NULL,
+  loserScore int NOT NULL,
   PRIMARY KEY (id)
 );
 
 # --- !Downs
 
-DROP TABLE Teste;
+DROP TABLE Score;
