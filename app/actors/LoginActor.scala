@@ -10,9 +10,17 @@ package actors
 
 import akka.actor.Actor
 import models.User
+import infrastructure.DB.Users
+import scala.slick.driver.H2Driver.simple._
+import scala.slick.session.{ Database, Session }
 
-class LoginActor extends Actor  {
+class LoginActor(val db:Database) extends Actor  {
   def receive = {
-    case User(id, name, userName) =>
+    case User(id, name, username) => {
+
+      db withSession { implicit session:Session =>
+        Users.insert(id, name, username, "")
+      }
+    }
   }
 }

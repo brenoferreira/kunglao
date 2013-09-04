@@ -10,11 +10,11 @@ package infrastructure.DB
 
 import scala.slick.driver.H2Driver.simple._
 
-object Users extends Table[(Int, String, String, String)]("User") {
-  def id = column[Int]("id", O.PrimaryKey)
-  def name = column[String]("name")
-  def username = column[String]("username")
-  def email = column[String]("email")
+object Users extends Table[(String, String, String, String)]("USER") {
+  def id = column[String]("ID", O.PrimaryKey)
+  def name = column[String]("NAME")
+  def username = column[String]("USERNAME")
+  def email = column[String]("EMAIL")
 
   def * = id ~ name ~ username ~ email
 }

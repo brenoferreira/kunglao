@@ -11,6 +11,14 @@ import com.restfb.types.User
  * To change this template use File | Settings | File Templates.
  */
 
+object FacebookConfig {
+  def facebookRedirectBaseUrl = "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s"
+  def getAccessTokenUrl = "https://graph.facebook.com/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s"
+  def appId = "165191523671060"
+  def redirectUrl = "http://localhost:9000/login/auth"
+  def appSecret = "9dc03399972fb53f6632d2199cb588bc"
+}
+
 class AccessToken(val token:String)
 
 object AccessToken{
@@ -29,7 +37,6 @@ class FacebookLogin(val accessToken:AccessToken) {
 
   def getUserInfo = {
     val user = fbClient.fetchObject("me", classOf[User])
-
     new models.User(user.getId, user.getName, user.getUsername)
   }
 }

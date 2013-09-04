@@ -1,7 +1,12 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
-import infrastructure.{AccessToken, FacebookLogin}
+import infrastructure.{FacebookConfig, AccessToken, FacebookLogin}
+import play.libs.Akka
+import akka.actor.Props
+import actors.LoginActor
+import scala.slick.session.Database
+import play.api.Play
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,20 +19,31 @@ import infrastructure.{AccessToken, FacebookLogin}
 import dispatch._, Defaults._
 
 object LoginController extends Controller {
-  val facebookRedirectBaseUrl = "https://www.facebook.com/dialog/oauth?client_id=%s&redirect_uri=%s"
-  val getAccessTokenUrl = "https://graph.facebook.com/oauth/access_token?client_id=%s&redirect_uri=%s&client_secret=%s&code=%s"
-  val appId = "165191523671060"
-  val redirectUrl = "http://localhost:9000/login/auth"
-  val appSecret = "9dc03399972fb53f6632d2199cb588bc"
+
+  val db = Database.forURL(
+    Play.current.configuration.getString("db.default.url").get,
+    Play.current.configuration.getString("db.default.user").get,
+    Play.current.configuration.getString("db.default.password").get,
+    null,
+    Play.current.configuration.getString("db.default.driver").get)
 
   def login = Action {
-    val url = String.format(facebookRedirectBaseUrl, appId, redirectUrl)
+    val url = String.format(
+      FacebookConfig.facebookRedirectBaseUrl,
+      FacebookConfig.appId,
+      FacebookConfig.redirectUrl)
+
     Redirect(url)
   }
 
   def auth(code:Option[String]) = Action {
     def createRequest(code:String) = {
-      val uri = String.format(getAccessTokenUrl, appId, redirectUrl, appSecret, code)
+      val uri = String.format(
+        FacebookConfig.getAccessTokenUrl,
+        FacebookConfig.appId,
+        FacebookConfig.redirectUrl,
+        FacebookConfig.appSecret,
+        code)
       val svc = url(uri)
 
       Http(svc OK as.String)
@@ -42,6 +58,10 @@ object LoginController extends Controller {
         val facebookLogin = new FacebookLogin(accessToken)
 
         val user = facebookLogin.getUserInfo
+
+        val actor = Akka.system().actorOf(Props(new LoginActor(db)))
+
+        actor ! user
 
         Redirect(routes.MainController.index).withSession("username" -> user.username)
       })
