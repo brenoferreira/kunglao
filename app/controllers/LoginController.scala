@@ -63,7 +63,7 @@ object LoginController extends Controller {
 
         actor ! user
 
-        Redirect(routes.MainController.index).withSession("username" -> user.username)
+        Redirect(routes.GameController.index).withSession("username" -> user.username)
       })
     }
   }
