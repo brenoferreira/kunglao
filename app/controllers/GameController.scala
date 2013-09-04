@@ -1,6 +1,8 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
+import models.{Player, User}
+import infrastructure.GameParser
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,5 +14,13 @@ import play.api.mvc.{Action, Controller}
 object GameController extends Controller {
   def index = Action {
     Ok(views.html.game.render("Welcome kombatant!"))
+  }
+
+  def create = Action { request =>
+    val score = request.body.asJson.map { json =>
+      GameParser(json)
+    }
+
+    Status(201)
   }
 }

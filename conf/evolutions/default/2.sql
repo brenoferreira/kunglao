@@ -1,4 +1,4 @@
-# Users schema
+# Scores schema
 
 # --- !Ups
 
