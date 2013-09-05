@@ -2,14 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET        /                                 controllers.MainController.index()
-GET        /message                          controllers.MessageController.getMessage()
-GET        /login                            controllers.LoginController.login()
-GET        /login/auth                       controllers.LoginController.auth(code:Option[String])
-GET        /game                             controllers.GameController.index()
-GET        /assets/javascripts/routes        controllers.MessageController.javascriptRoutes()
-POST       /game                             controllers.GameController.create
+GET         /                                 controllers.MainController.index()
+GET         /message                          controllers.MessageController.getMessage()
+GET         /login                            controllers.LoginController.login()
+GET         /login/auth                       controllers.LoginController.auth(code:Option[String])
+GET         /game                             controllers.GameController.index()
+GET         /assets/javascripts/routes        controllers.MessageController.javascriptRoutes()
+POST        /game                             controllers.GameController.create
+GET         /game/players                     controllers.GameController.players
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                     controllers.Assets.at(path="/public", file)
-GET        /webjars/*file                    controllers.WebJarAssets.at(file)
+GET         /assets/*file                     controllers.Assets.at(path="/public", file)
+GET         /webjars/*file                    controllers.WebJarAssets.at(file)

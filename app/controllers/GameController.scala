@@ -4,8 +4,12 @@ import play.api.mvc.{Action, Controller}
 import models.{Player, User}
 import infrastructure.{SlickDatabaseFactory, GameParser}
 import play.libs.Akka
+import play.api.libs.json.Json
 import akka.actor.Props
 import actors.ScoreActor
+import scala.concurrent.Future
+import infrastructure.DB.Users
+import scala.slick.driver.H2Driver.simple._
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,5 +37,20 @@ object GameController extends Controller {
     }
 
     Status(201)
+  }
+
+  def players = Action {
+    db withSession { implicit session:Session =>
+      val users = Query(Users)
+        .list
+        .map(user =>
+              Map(
+                "id" -> Json.toJson(user._1),
+                "name" -> Json.toJson(user._2)
+              )
+        )
+
+      Ok(Json.toJson(users.toSeq))
+    }
   }
 }
