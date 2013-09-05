@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
-import infrastructure.{FacebookConfig, AccessToken, FacebookLogin}
+import infrastructure.{SlickDatabaseFactory, FacebookConfig, AccessToken, FacebookLogin}
 import play.libs.Akka
 import akka.actor.Props
 import actors.LoginActor
@@ -20,12 +20,7 @@ import dispatch._, Defaults._
 
 object LoginController extends Controller {
 
-  val db = Database.forURL(
-    Play.current.configuration.getString("db.default.url").get,
-    Play.current.configuration.getString("db.default.user").get,
-    Play.current.configuration.getString("db.default.password").get,
-    null,
-    Play.current.configuration.getString("db.default.driver").get)
+  val db = SlickDatabaseFactory.create
 
   def login = Action {
     val url = String.format(
