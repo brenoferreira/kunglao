@@ -19,7 +19,7 @@ object ApplicationBuild extends Build {
   
     // WebJars pull in client-side web libraries
     "org.webjars" %% "webjars-play" % "2.1.0-2",
-    "org.webjars" % "bootstrap" % "2.3.1",
+    "org.webjars" % "bootstrap" % "3.0.0",
   
     // Add your own project dependencies in the form:
     // "group" % "artifact" % "version"

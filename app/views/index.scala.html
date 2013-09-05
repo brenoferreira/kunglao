@@ -1,13 +1,8 @@
 @(message: String)
 
 @main("Kung Lao") {
-
-    <script type='text/javascript' src='@routes.Assets.at("javascripts/index.min.js")'></script>
-    
-    <div class="well">
-        <h1>@message</h1>
+    <div class="jumbotron">
+        <img src="/assets/images/kunglao.jpg" class="img-rounded img-responsive">
+        <a class="btn btn-primary" href="/login">Login</a>
     </div>
-
-    <button id="getMessageButton">Get JSON Message</button>
-
 }
